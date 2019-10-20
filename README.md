@@ -1,7 +1,7 @@
 ## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
-|name|text|null: false,index: true|
+|name|string|null: false,index: true|
 |email|text|null: false,add_index unique: true|
 |password|text|null: false|
 ### Association
@@ -12,7 +12,7 @@
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|name|text|null: false|
+|name|string|null: false|
 ### Association
 - has_many :posts
 - has_many :users_groups
