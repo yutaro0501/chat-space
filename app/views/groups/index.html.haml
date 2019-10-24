@@ -1,18 +1,24 @@
 .wrapper
-  .news グループを作成しました
   .chat-side
     .side-header
       .side-header__box
-        %p.side-header__box--user-name yuuuuu
+        %p.side-header__box--user-name
+          = current_user.name
         %ul.side-header__box--menu
           %li.side-header__box--menu--new-group 
-            = fa_icon 'edit', class: 'icon'
+            = link_to new_group_path do
+              = fa_icon 'edit', class: 'icon'
           %li.side-header__box--menu--edit-user 
-            = fa_icon 'cog', class: 'icon'
+            = link_to edit_user_path(current_user) do
+              = fa_icon 'cog', class: 'icon'
     .groups
       .group
-        %p.group__group-name グループ名
-        %p.group__latest-message 最新メッセージ
+        - current_user.groups.each do |group|
+          = link_to groups_path(current_user) do
+            .group__group-name
+              = group.name
+            .group__latest-message
+              メッセージないよ
   .chat-main
     .main-header
       .main-header__left-box
@@ -20,7 +26,7 @@
         %ul.main-header__left-box__menber-list 
           Member : 
           %li.main-header__left-box__menber-list__menber メンバー名
-      .main-header__edit-btn Edit
+      .main-header__edit-btn edit
     .messages
       .message
         .message__upper-info
@@ -36,6 +42,3 @@
               =fa_icon 'image', class:'image-icon'
             %input{:id => "file-button", :type => "file"}
         %button.submit-btn Send
-
-      
-        
