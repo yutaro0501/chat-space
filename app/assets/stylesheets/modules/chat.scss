@@ -35,12 +35,13 @@
 
   .messages {
     background-color: #FAFAFA;
-    box-sizing: border-box;
-    padding: 46px 40px 0;
-    height: calc(100% - 100px - 90px);
+    padding: 0px 40px 0;
+    height: calc(100vh - 190px);
+    overflow: scroll;
     .message {
       .upper-message {
         display: flex;
+        margin-top: 40px;
         &__user-name {
           color: #434a54;
           font-size: 16px;
