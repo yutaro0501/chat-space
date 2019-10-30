@@ -65,7 +65,7 @@ $('#new_message').on('submit', function(e) {
         $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 'fast');
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("ajax通信に失敗しました");
+        alert('自動更新に失敗しました');
       });
     }
   };
