@@ -1,22 +1,25 @@
-$(function() {
-  function buildHTML(message){
-    image = message.image ? `<img class= "lower-message__image" src=${message.image} >` : "";
-    var html = `<div class="message">
-                 <div class="upper-message">
-                  <div class="upper-message__user-name">
-                    ${message.user_name}
-                  </div>
-                  <div class="upper-message__date">
-                    ${message.date}
-                  </div>
-                </div>
-                 <div class="lower-message">
-                  <p class="lower-message__content">
-                    ${message.content}
-                  </p>
-                 </div>
-                 ${image}
-                </div>`
+$(function () {
+
+  function buildHTML(message) {
+
+    image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : ""; 
+
+    var html = `<div class="message" data-message_id="${message.id}"> 
+          <div class="upper-message">
+            <div class="upper-message__user-name">
+              ${message.user_name}
+            </div>
+            <div class="upper-message__date">
+              ${message.date}
+            </div>
+          </div>
+          <div class="lower-meesage">
+            <p class="lower-message__content">
+              ${message.content}
+            </p>
+            ${image}
+          </div>
+        </div>`
     return html;
   }
 
@@ -43,4 +46,28 @@ $('#new_message').on('submit', function(e) {
     alert('error');
   })
   })
-});
+
+  var reloadMessages = function () {
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){
+      var href = 'api/messages#index {:format=>"json"}'  
+      var last_message_id = $(".message:last").data("message_id"); 
+      $.ajax({    
+        url: href, 
+        type: "GET", 
+        data: {message_id: last_message_id},
+      })
+      .done(function (messages) { 
+        var insertHTML = '';
+        messages.forEach(function (message) {
+          insertHTML = buildHTML(message); 
+          $(".messages").append(insertHTML);
+        })
+        $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 'fast');
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("ajax通信に失敗しました");
+      });
+    }
+  };
+  setInterval(reloadMessages, 5000);
+  });
