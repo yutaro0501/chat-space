@@ -74,4 +74,7 @@ gem 'erb2haml'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'mini_magick'
-
+gem 'minitest', '5.12.2'
+gem 'nokogiri', '1.10.4'
+gem 'loofah', '2.3.0'
+gem 'ruby_parser', '3.14.0'
